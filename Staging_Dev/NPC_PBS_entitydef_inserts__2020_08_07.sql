@@ -16,7 +16,7 @@ SET @compDesc = 'def_npcpbs_component_desc';
 SET @npcDesc = 'def_npc_pbs_desc';
 
 DROP TABLE IF EXISTS #ENTITYDEFS;
-CREATE TABLE #ENTITYDEFS 
+CREATE TABLE #ENTITYDEFS
 (
 	def INT,
 	defName varchar(100),
@@ -43,9 +43,9 @@ INSERT INTO #ENTITYDEFS (def, defName, attrFlags, catFlags, cargoVolume, massOfM
 (5894,'def_npcpbs_eff_booster_leg', 1024, 848, 2, 1000, '#height=f5.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
 (5895,'def_npcpbs_eff_emitter_leg', 1024, 848, 2, 1000, '#height=f5.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
 (5896,'def_npcpbs_control_tower_leg', 1024, 848, 2, 1000, '#height=f5.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
-(5897,'def_npcpbs_base_small_leg', 1024, 848, 2, 1000, '#height=f5.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
-(5898,'def_npcpbs_base_medium_leg', 1024, 848, 2, 1000,'#height=f5.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
-(5899,'def_npcpbs_base_large_leg', 1024, 848, 2, 1000, '#height=f5.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
+(5897,'def_npcpbs_base_small_leg', 1024, 848, 2, 1000, '#height=f7.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
+(5898,'def_npcpbs_base_medium_leg', 1024, 848, 2, 1000,'#height=f7.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
+(5899,'def_npcpbs_base_large_leg', 1024, 848, 2, 1000, '#height=f7.00  #slotFlags=420,20,20,20,20,20,20,20', @compDesc),
 (5900,'def_npcpbs_invis_head', 1024, 336, 2, 1000, '#height=f0.10  #slotFlags=48,8,8,8,8,8,8,8', @compDesc),
 (5901,'def_npcpbs_invis_chassis', 1024, 592, 2, 1000,  '#height=f1.00', @compDesc),
 --NPC defs
@@ -70,9 +70,84 @@ INSERT INTO #ENTITYDEFS (def, defName, attrFlags, catFlags, cargoVolume, massOfM
 (5920,'def_npc_pbs_base_large_rank1', 1024, 911, 0, 0, NULL, @npcDesc);
 
 
+DROP TABLE IF EXISTS #TEMPLATES;
+CREATE TABLE #TEMPLATES
+(
+	tempName varchar(100),
+	botName varchar(100),
+	headName varchar(100),
+	chassisName varchar(100),
+	legName varchar(100),
+	inventoryName varchar(100),
+	loadOut VARCHAR(MAX)
+);
+INSERT INTO #TEMPLATES (tempName, botName, headName, chassisName, legName, inventoryName, loadOut) VALUES
+('def_npc_pbs_turret_laser_template', 'def_pbs_turret_bot', 'def_npcpbs_turret_head', 'def_npcpbs_turret_chassis', 'def_npcpbs_turret_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[|m0=[|definition=i12ff|slot=i1|ammoDefinition=i1439|ammoQuantity=i19]|m1=[|definition=i12ff|slot=i2|ammoDefinition=i1439|ammoQuantity=i19]]#legModules=[|m0=[|definition=i14|slot=i1]]'),
+('def_npc_pbs_turret_em_temlate', 'def_pbs_turret_bot', 'def_npcpbs_turret_head', 'def_npcpbs_turret_chassis', 'def_npcpbs_turret_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[|m0=[|definition=i1301|slot=i1|ammoDefinition=i1438|ammoQuantity=i14]|m1=[|definition=i1301|slot=i2|ammoDefinition=i1438|ammoQuantity=i14]]#legModules=[|m0=[|definition=i14|slot=i1]]'),
+('def_npc_pbs_turret_missile_template', 'def_pbs_turret_bot', 'def_npcpbs_turret_head', 'def_npcpbs_turret_chassis', 'def_npcpbs_turret_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[|m0=[|definition=i1300|slot=i1|ammoDefinition=i143a|ammoQuantity=i14]|m1=[|definition=i1300|slot=i2|ammoDefinition=i143a|ammoQuantity=i14]]#legModules=[|m0=[|definition=i14|slot=i1]]'),
+('def_npc_pbs_turret_ew_template', 'def_pbs_turret_bot', 'def_npcpbs_turret_head', 'def_npcpbs_turret_chassis', 'def_npcpbs_turret_leg', 'def_robot_inventory_daidalos',
+'#headModules=[|m0=[|definition=i1370|slot=i1]|m1=[|definition=i1371|slot=i2]|m2=[|definition=i33|slot=i3]|m3=[|definition=i1371|slot=i4]|m4=[|definition=i1372|slot=i5]]#chassisModules=[|m0=[|definition=i136f|slot=i1]|m1=[|definition=i136f|slot=i2]]#legModules=[|m0=[|definition=i14|slot=i1]]'),
+('def_npc_pbs_reactor_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_reactor_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_e_emitter_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_e_transmitter_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_e_transfer_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_e_transfer_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_e_battery_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_e_battery_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_facility_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_facility_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_facility_upgrade_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_facility_upgrade_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_miner_tower_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_mining_tower_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_repair_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_repair_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_eff_booster_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_eff_booster_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_eff_emitter_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_eff_emitter_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_control_tower_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_control_tower_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_base_small_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_base_small_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_base_medium_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_base_medium_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]'),
+('def_npc_pbs_base_large_template', 'def_pbs_turret_bot', 'def_npcpbs_invis_head', 'def_npcpbs_invis_chassis', 'def_npcpbs_base_large_leg', 'def_robot_inventory_daidalos',
+'#headModules=[]#chassisModules=[]#legModules=[|m0=[|definition=i12|slot=i1]]');
+
+DROP TABLE IF EXISTS #TEMPRELATIONS;
+CREATE TABLE #TEMPRELATIONS
+(
+	defName varchar(100),
+	tempName varchar(100),
+	epKill INT,
+);
+INSERT INTO #TEMPRELATIONS (defName, tempName, epKill) VALUES
+('def_npc_pbs_turret_laser_rank1', 'def_npc_pbs_turret_laser_template', 10),
+('def_npc_pbs_turret_em_rank1', 'def_npc_pbs_turret_em_temlate', 10),
+('def_npc_pbs_turret_missile_rank1', 'def_npc_pbs_turret_missile_template', 10),
+('def_npc_pbs_turret_ew_rank1', 'def_npc_pbs_turret_ew_template', 10),
+('def_npc_pbs_reactor_rank1', 'def_npc_pbs_reactor_template', 20),
+('def_npc_pbs_e_emitter_rank1', 'def_npc_pbs_e_emitter_template', 10),
+('def_npc_pbs_e_transfer_rank1', 'def_npc_pbs_e_transfer_template', 10),
+('def_npc_pbs_e_battery_rank1', 'def_npc_pbs_e_battery_template', 10),
+('def_npc_pbs_facility_rank1', 'def_npc_pbs_facility_template', 10),
+('def_npc_pbs_facility_upgrade_rank1', 'def_npc_pbs_facility_upgrade_template', 10),
+('def_npc_pbs_miner_tower_rank1', 'def_npc_pbs_miner_tower_template', 15),
+('def_npc_pbs_energy_tower_rank1', 'def_npc_pbs_miner_tower_template', 15),
+('def_npc_pbs_control_tower_rank1', 'def_npc_pbs_control_tower_template', 20),
+('def_npc_pbs_base_small_rank1', 'def_npc_pbs_base_small_template', 50),
+('def_npc_pbs_base_medium_rank1', 'def_npc_pbs_base_medium_template', 100),
+('def_npc_pbs_base_large_rank1', 'def_npc_pbs_base_large_template', 150);
+
+
 
 DROP TABLE IF EXISTS #STATS;
-CREATE TABLE #STATS 
+CREATE TABLE #STATS
 (
 	defName varchar(100),
 	fieldName varchar(100),
@@ -415,12 +490,35 @@ INSERT INTO aggregatevalues (definition, field, value)
 SELECT 
 	(SELECT TOP 1 definition FROM entitydefaults WHERE definitionname=defName), 
 	(SELECT TOP 1 id FROM aggregatefields WHERE name=fieldName), 
-	fieldValue 
+	fieldValue
 FROM #STATS;
 
 
+DELETE FROM robottemplaterelation WHERE definition in (SELECT definition FROM entitydefaults WHERE definitionname in (SELECT DISTINCT defName FROM #TEMPRELATIONS));
+DELETE FROM robottemplates WHERE name in (SELECT tempName FROM #TEMPLATES);
+
+INSERT INTO robottemplates (name, description, note)
+SELECT t.tempName,
+	'#robot=i'+dbo.ToHex((SELECT TOP 1 definition FROM entitydefaults WHERE definitionname=t.botName))+
+	'#head=i'+dbo.ToHex((SELECT TOP 1 definition FROM entitydefaults WHERE definitionname=t.headName))+
+	'#chassis=i'+dbo.ToHex((SELECT TOP 1 definition FROM entitydefaults WHERE definitionname=t.chassisName))+
+	'#leg=i'+dbo.ToHex((SELECT TOP 1 definition FROM entitydefaults WHERE definitionname=t.legName))+
+	'#container=i'+dbo.ToHex((SELECT TOP 1 definition FROM entitydefaults WHERE definitionname=t.inventoryName))+
+	t.loadOut,
+	'NPC PBS TEMPLATE'
+ FROM #TEMPLATES as t;
 
 
+INSERT INTO robottemplaterelation ([definition],[templateid],[itemscoresum],[raceid],[missionlevel],[missionleveloverride],[killep],[note])
+SELECT
+	(SELECT TOP 1 definition FROM entitydefaults WHERE definitionname=t.defName),
+	(SELECT TOP 1 id FROM robottemplates WHERE name=t.tempName),
+	0, 0, NULL, NULL, t.epKill, 'Relate: '+t.defName+ '<->'+t.tempName
+FROM #TEMPRELATIONS AS t;
+
+
+DROP TABLE IF EXISTS #TEMPRELATIONS;
+DROP TABLE IF EXISTS #TEMPLATES;
 DROP TABLE IF EXISTS #STATS;
 DROP TABLE IF EXISTS #ENTITYDEFS;
 
